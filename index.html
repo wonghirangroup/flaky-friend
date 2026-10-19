@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ประวัติย่อ: นักตอบรับตัวยง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#fff8e7; --ink:#2b2118; --muted:#7a6a58; --accent:#e0452b; --card:#fff; --line:#f0dfb8; }
+  :root { --bg:#fbefd9; --ink:#2b1a14; --muted:#7a5f50; --accent:#d9301b; --card:#fff8ea; --line:#e9c9a5; }
   * { box-sizing: border-box; }
-  body { margin:0; font-family: 'Noto Sans Thai', system-ui, sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
+  body { margin:0; font-family: 'Kanit', 'Noto Sans Thai', system-ui, sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
   .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
   header { text-align:center; padding: 56px 0 32px; }
   .avatar { width:140px; height:140px; border-radius:50%; object-fit:cover; object-position:70% 20%; border:4px solid var(--accent); display:block; margin:0 auto 16px; }
@@ -30,12 +31,19 @@
   #reply { min-height:3em; margin-top:16px; font-weight:700; }
   #no { position:relative; background:#ddd; color:var(--ink); margin-left:8px; }
   footer { text-align:center; color:var(--muted); font-size:.8rem; padding-bottom:32px; }
+  .poster { width:100%; display:block; border-radius:18px; box-shadow:0 10px 30px rgba(120,40,20,.25); margin:24px 0 0; }
+  h1 { font-weight:800; }
+  h2 { display:inline-block; background:var(--accent); color:#fff; padding:2px 18px; border-radius:10px; border:0; transform:rotate(-1.5deg); font-weight:800; }
+  .stat, ul.timeline li { border:2px solid var(--accent); border-radius:18px 18px 18px 6px; }
+  ul.timeline { border-left:4px solid var(--accent); }
+  ul.timeline li::before { left:-31px; width:16px; height:16px; }
+  .bye { text-align:center; font-size:clamp(2rem,9vw,3.4rem); font-weight:800; color:var(--accent); line-height:1.1; transform:rotate(-2deg); margin:8px 0 0; text-shadow:2px 2px 0 #fff; }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <img class="poster" src="poster.png" alt="สถิติที่ไม่ไป: เซฟวัน, ไปเตะบอลเอกสีมา, กินเนื้อย่างบ้านบู, หมูย่างฟุ้งฟิ้ง, ทริปเปโต๊ะรอซู — บ๊ายบาย ไม่ไปจ้าา">
   <header>
-    <img class="avatar" src="ball.png" alt="บอล">
     <h1 id="name"></h1>
     <div class="sub">นักตอบรับตัวยง · ผู้เชี่ยวชาญด้านการไม่มา · ศิษย์เก่าภาคภูมิใจ มทร.อีสาน</div>
     <span class="badge">ยืนยันแล้ว: ไปแน่นอน (ไม่ไป)</span>
@@ -72,6 +80,7 @@
     <button id="yes">ชวนไปเที่ยวไหม?</button><button id="no">ไม่ชวนแล้ว</button>
     <div id="reply" role="status" aria-live="polite"></div>
   </div>
+  <p class="bye">บ๊ายบาย<br>ไม่ไปจ้าา</p>
   <footer>เว็บนี้ทำขึ้นเพื่อความบันเทิงเท่านั้น ❤️ ไม่ได้โกรธกันจริงๆ</footer>
 </div>
 <script>
