@@ -44,9 +44,28 @@
   .poster { width:100%; border-radius:10px; display:block; margin-bottom:10px; }
   #reply { min-height:2.5em; margin-top:10px; font-weight:600; }
   footer { text-align:center; color:var(--muted); font-size:.8rem; padding:8px 0 32px; }
+  #gate { position:fixed; inset:0; z-index:10; background:#fbefd9; display:grid; place-items:center; padding:20px; }
+  #gate.hide { display:none; }
+  .gate-box { background:#fff; border:3px solid var(--red); border-radius:20px; padding:28px 24px; max-width:460px; width:100%; text-align:center; box-shadow:0 10px 30px rgba(120,40,20,.25); }
+  .gate-box h2 { margin:0 0 6px; font-size:1.4rem; }
+  .gate-box p { color:var(--muted); margin:0 0 18px; }
+  .opts { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:10px; }
+  .opts .btn { padding:12px; font-size:1.05rem; }
+  #gmsg { min-height:2.4em; margin-top:14px; font-weight:700; color:var(--red); }
+  .shake { animation: shake .35s; }
+  @keyframes shake { 25% { transform:translateX(-8px); } 75% { transform:translateX(8px); } }
+  @media (prefers-reduced-motion: reduce) { .shake { animation:none; } }
 </style>
 </head>
 <body>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gq">
+  <div class="gate-box" id="gbox">
+    <h2 id="gq">ในนี้ใครคือสิงห์นักบิดตัวจริง?</h2>
+    <p>ตอบให้ถูกก่อน ถึงจะเข้าดูได้</p>
+    <div class="opts" id="opts"></div>
+    <div id="gmsg" role="status" aria-live="polite"></div>
+  </div>
+</div>
 <div class="top"><div class="inner">
   <div class="cover"><img src="poster.png" alt=""></div>
   <div class="head">
@@ -118,6 +137,23 @@
   document.getElementById('name').textContent = FRIEND;
   document.title = FRIEND + ' | นักตอบรับตัวยง';
   document.querySelectorAll('.nm').forEach(e => e.textContent = FRIEND);
+
+  // ด่านคำถามก่อนเข้าหน้า — คำตอบที่ถูกคือ 'บอล'
+  const OPTIONS = ['แบ', 'บู', 'บอล', 'นก', 'เวิด'], ANSWER = 'บอล';
+  const WRONG = ['ไม่ใช่ๆ คิดอีกที', 'ใกล้เคียง… แต่ไม่ใช่', 'คนนี้ยังไม่เคยเบี้ยวขนาดนั้น', 'ลองใหม่ ใบ้ให้: ชื่อเหมือนของที่เตะ ⚽'];
+  const gate = document.getElementById('gate'), gmsg = document.getElementById('gmsg'), opts = document.getElementById('opts');
+  let wrong = 0;
+  OPTIONS.forEach(o => {
+    const b = document.createElement('button'); b.className = 'btn'; b.textContent = o;
+    b.onclick = () => {
+      if (o === ANSWER) { gmsg.textContent = ''; gate.classList.add('hide'); document.body.style.overflow = ''; return; }
+      gmsg.textContent = WRONG[wrong++ % WRONG.length];
+      const box = document.getElementById('gbox'); box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+    };
+    opts.appendChild(b);
+  });
+  document.body.style.overflow = 'hidden';
+  opts.firstChild.focus();
 
   const feed = document.getElementById('feed');
   MISSED.forEach(([t, d], i) => {
