@@ -152,7 +152,12 @@
   OPTIONS.forEach(o => {
     const b = document.createElement('button'); b.className = 'btn'; b.textContent = o;
     b.onclick = () => {
-      if (o === ANSWER) { gmsg.textContent = ''; gate.classList.add('hide'); document.body.style.overflow = ''; return; }
+      if (o === ANSWER) {
+        gmsg.style.color = 'var(--blue)'; gmsg.textContent = 'ฮะฮะฮะ โหน่งมาแว้วว';
+        opts.querySelectorAll('button').forEach(x => x.disabled = true);
+        setTimeout(() => { gate.classList.add('hide'); document.body.style.overflow = ''; }, 1800);
+        return;
+      }
       gmsg.textContent = WRONG[wrong++ % WRONG.length];
       const box = document.getElementById('gbox'); box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
     };
